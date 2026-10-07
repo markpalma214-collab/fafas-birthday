@@ -1,5 +1,3 @@
-
-
 :root {
     --washi: #fff6ec;
     --sakura: #ffd3de;
@@ -8,8 +6,9 @@
     --ai: #2f5d9a;
     --kin: #e0a93b;
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 html, body { height: 100%; }
 
@@ -17,9 +16,6 @@ html, body { height: 100%; }
     opacity:0;
     transition: transform 0.3s ease, opacity 1s ease;
 }
-/* ===== PASTE THIS IN mainpage.css =====
-   First DELETE your old rules for: .letter, .message, @keyframes blink,
-   .surprise, .surprise:hover. Everything else stays the same. */
 
 /* ---------- Buttons (same colours as your theme) ---------- */
 .btn {
@@ -59,6 +55,7 @@ html, body { height: 100%; }
     width: min(88vw, 440px);
     height: fit-content;
     max-height: 85vh;
+    max-height: 85dvh;
     overflow-y: auto;
     padding: 34px 30px 26px;
     text-align: left;
@@ -120,7 +117,9 @@ html, body { height: 100%; }
     margin: auto;
     z-index: 10;
     width: min(92vw, 78vh);
+    width: min(92vw, 78dvh);
     height: min(92vw, 78vh);
+    height: min(92vw, 78dvh);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -255,17 +254,20 @@ body {
 img{
     height:150px;
     width:150px;
+    max-width: 100%;
     border-radius: 15px;
     border:3px solid rgb(253, 35, 72);
 }
 .layout {
     position: relative;
     z-index: 5;
+    min-height: 100vh;
     min-height: 100svh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 24px;
+    overflow: hidden;   /* stops the slid-away .box from stretching the page wider than the screen */
 }
 
 .box { text-align: center;
@@ -277,8 +279,9 @@ img{
     transition: transform 1s ease, opacity 1s ease
     }
 .box.slide-away{
-    transform:translate(100vh);
+    transform:translate(110vw);
     opacity:0;
+    pointer-events: none;
 }
 .title-row {
     display: inline-flex;
@@ -380,4 +383,196 @@ section.name h2 {
 
 @media (prefers-reduced-motion: reduce) {
     .lantern { animation: none; bottom: 12vh; }
+}
+
+
+/* =====================================================================
+   RESPONSIVE: PHONES (kept at the very end so these rules win)
+   No class, id or variable names were changed, only sizes and spacing.
+   ===================================================================== */
+
+/* Touch screens: no "stuck" hover effect after tapping */
+@media (hover: none) {
+    .btn:hover  { transform: none; box-shadow: 0 4px 12px rgba(200, 16, 46, .25); }
+    #button:hover { transform: none; box-shadow: none; }
+}
+
+/* ---------- Phones in portrait ---------- */
+@media (max-width: 480px) {
+
+    .layout {
+        padding:
+            max(14px, env(safe-area-inset-top))
+            max(14px, env(safe-area-inset-right))
+            max(14px, env(safe-area-inset-bottom))
+            max(14px, env(safe-area-inset-left));
+    }
+
+    .box {
+        width: 100%;
+        max-width: 460px;
+        gap: 8px;
+    }
+
+    .title-row {
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+        gap: 8px;
+    }
+
+    #text {
+        font-size: clamp(1.7rem, 8vw, 2.6rem);
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    .hanko {
+        width: 1.9rem;
+        height: 1.9rem;
+        font-size: 1.2rem;
+        margin-top: 0;
+    }
+
+    .romaji {
+        font-size: .85rem;
+        letter-spacing: .12em;
+        line-height: 1.5;
+        padding: 0 6px;
+    }
+
+    /* buttons: comfortable to tap */
+    .btn {
+        font-size: .95rem;
+        padding: 10px 26px;
+        min-height: 44px;
+    }
+    .btn-small {
+        font-size: .9rem;
+        padding: 8px 20px;
+        min-height: 40px;
+    }
+    .surprise { min-width: 140px; }
+
+    /* name box */
+    section.name {
+        width: 100%;
+        padding: 18px 14px;
+    }
+    section.name h2 { font-size: 1.05rem; margin-bottom: 12px; }
+    .inputValue {
+        font-size: 16px;            /* stops iPhone from zooming into the input */
+        padding: 11px 12px;
+    }
+    #button {
+        min-height: 44px;
+        padding: 11px 30px;
+    }
+    #response { font-size: 1rem; }
+
+    /* letters */
+    .letter,
+    .secondletter {
+        width: min(92vw, 440px);
+        max-height: 82vh;
+        max-height: 82dvh;
+        padding: 24px 18px 18px;
+        border-top-width: 5px;
+        background:
+            repeating-linear-gradient(to bottom, transparent 0 27px, rgba(47, 93, 154, .12) 27px 28px),
+            #fffdf8;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+    .from {
+        font-size: 1.6rem;
+        margin-bottom: 10px;
+    }
+    .message {
+        font-size: 1rem;
+        line-height: 28px;          /* matches the ruled lines above */
+        min-height: 6em;
+        overflow-wrap: break-word;
+    }
+
+    /* gallery */
+    .gallery {
+        width: min(94vw, 74vh);
+        width: min(94vw, 74dvh);
+        height: min(94vw, 74vh);
+        height: min(94vw, 74dvh);
+        gap: 6px;
+    }
+    .gallery figure { border-radius: 10px; }
+    .gallery img {
+        border-radius: 10px;
+        border-width: 2px;
+    }
+
+    /* background */
+    .sun {
+        top: 4vh;
+        right: 6vw;
+        width: 18vmin;
+        height: 18vmin;
+        box-shadow: 0 0 40px 10px rgba(200, 16, 46, .22);
+    }
+    .waves {
+        height: 14vh;
+        background-size: 52px 26px;
+        background-position: 0 0, 26px 13px;
+    }
+    .lantern { box-shadow: 0 0 18px 4px var(--c); }
+}
+
+/* ---------- Phones turned sideways (short screens) ---------- */
+@media (max-height: 520px) and (orientation: landscape) {
+
+    .layout { padding: 10px 16px; }
+
+    .box { gap: 4px; }
+
+    #text { font-size: clamp(1.4rem, 5vw, 2.2rem); }
+    .hanko { width: 1.7rem; height: 1.7rem; font-size: 1.1rem; margin-top: 0; }
+
+    .romaji {
+        margin-top: 0;
+        font-size: .8rem;
+        letter-spacing: .1em;
+    }
+
+    img { height: 90px; width: 90px; }
+
+    .btn { padding: 8px 24px; }
+    .btn-small { padding: 6px 18px; }
+
+    .letter,
+    .secondletter {
+        width: min(80vw, 520px);
+        max-height: 90vh;
+        max-height: 90dvh;
+        padding: 16px 20px 12px;
+        background:
+            repeating-linear-gradient(to bottom, transparent 0 27px, rgba(47, 93, 154, .12) 27px 28px),
+            #fffdf8;
+    }
+    .from { font-size: 1.4rem; margin-bottom: 6px; }
+    .message {
+        font-size: .95rem;
+        line-height: 28px;
+        min-height: 4em;
+    }
+    .next, .next2 { margin-top: 8px; }
+
+    .gallery {
+        width: min(70vw, 88vh);
+        width: min(70vw, 88dvh);
+        height: min(70vw, 88vh);
+        height: min(70vw, 88dvh);
+        gap: 6px;
+    }
+    .gallery img { border-width: 2px; }
+
+    .sun { width: 16vmin; height: 16vmin; }
 }
