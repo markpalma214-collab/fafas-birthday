@@ -1,0 +1,383 @@
+
+
+:root {
+    --washi: #fff6ec;
+    --sakura: #ffd3de;
+    --aka: #c8102e;
+    --sumi: #2b2118;
+    --ai: #2f5d9a;
+    --kin: #e0a93b;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+.picture{
+    opacity:0;
+    transition: transform 0.3s ease, opacity 1s ease;
+}
+/* ===== PASTE THIS IN mainpage.css =====
+   First DELETE your old rules for: .letter, .message, @keyframes blink,
+   .surprise, .surprise:hover. Everything else stays the same. */
+
+/* ---------- Buttons (same colours as your theme) ---------- */
+.btn {
+    font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: .06em;
+    color: var(--washi);
+    background: var(--aka);
+    border: 2px solid var(--kin);
+    border-radius: 999px;
+    padding: 10px 32px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(200, 16, 46, .25);
+    transition: transform .15s ease, box-shadow .15s ease, opacity 1s ease;
+}
+.btn:hover  { transform: translateY(-2px) scale(1.05); box-shadow: 0 8px 18px rgba(200, 16, 46, .35); }
+.btn:active { transform: translateY(0) scale(1); }
+.btn:focus-visible { outline: 3px solid var(--sumi); outline-offset: 3px; }
+.btn-small { padding: 6px 20px; font-size: .9rem; }
+
+.surprise {
+    background: rgb(255, 71, 102);
+    opacity: 0;
+    height: auto;
+    width: auto;
+    min-width: 150px;
+}
+
+/* ---------- Letters ---------- */
+.letter,
+.secondletter {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    z-index: 10;
+    width: min(88vw, 440px);
+    height: fit-content;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 34px 30px 26px;
+    text-align: left;
+    background:
+        repeating-linear-gradient(to bottom, transparent 0 31px, rgba(47, 93, 154, .12) 31px 32px),
+        #fffdf8;
+    border-radius: 10px;
+    border-top: 6px solid var(--aka);
+    box-shadow: 2px 6px 18px rgba(120, 80, 80, .25);
+    opacity: 0;
+    pointer-events: none;
+    transition: translate 1s cubic-bezier(.22, .8, .3, 1), opacity 1s ease;
+}
+.letter       { translate: 0 0; }
+.secondletter { translate: 110vw 0; }   /* waits off-screen on the right */
+
+.letter.active,
+.secondletter.active { translate: 0 0; opacity: 1; pointer-events: auto; }
+
+.letter.exit,
+.secondletter.exit   { translate: -110vw 0; opacity: 0; pointer-events: none; }
+
+.from {
+    font-family: "Great Vibes", cursive;
+    font-size: 2rem;
+    color: var(--aka);
+    margin-bottom: 14px;
+}
+
+.message {
+    display: block;
+    min-height: 8em;
+    font-family: "Edu NSW ACT Cursive", "Quicksand", sans-serif;
+    font-weight: 500;
+    font-size: 1.15rem;
+    line-height: 32px;          /* matches the ruled lines */
+    color: var(--sumi);
+}
+.message.typing::after {        /* blinking cursor */
+    content: "|";
+    margin-left: 2px;
+    color: var(--aka);
+    animation: blink .7s step-end infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.next, .next2 {
+    display: block;
+    margin: 14px 0 0 auto;
+    opacity: 0;
+    pointer-events: none;
+}
+.next.show, .next2.show { opacity: 1; pointer-events: auto; }
+
+/* ---------- 3x3 Gallery ---------- */
+.gallery {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    z-index: 10;
+    width: min(92vw, 78vh);
+    height: min(92vw, 78vh);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    opacity: 0;
+    pointer-events: none;
+}
+.gallery.active { opacity: 1; pointer-events: auto; }
+
+.gallery figure {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 14px;
+    background: rgba(255, 246, 236, .6);
+    opacity: 0;
+    transform: scale(.92);
+    transition: opacity .9s ease, transform .9s ease;
+}
+.gallery figure.show { opacity: 1; transform: scale(1); }
+
+/* overrides your global img rule (150px) just for the gallery */
+.gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 14px;
+    border: 3px solid rgb(253, 35, 72);
+}
+
+
+
+body {
+    font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", sans-serif;
+    color: var(--sumi);
+    overflow: hidden;
+}
+
+/* ================= BACKGROUND ================= */
+.bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--washi) 0%, #ffe8ea 55%, var(--sakura) 100%);
+}
+
+.sun {
+    position: absolute;
+    top: 7vh;
+    right: 9vw;
+    width: 22vmin;
+    height: 22vmin;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #e8344a, var(--aka));
+    box-shadow: 0 0 60px 14px rgba(200, 16, 46, .22);
+}
+
+.fuji {
+    position: absolute;
+    left: 0;
+    bottom: 9vh;
+    width: 100%;
+    height: 38vh;
+}
+
+.waves {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 20vh;
+    background-image:
+        radial-gradient(circle at 50% 100%, transparent 0 30%, rgba(47,93,154,.45) 31% 36%, transparent 37% 46%, rgba(47,93,154,.45) 47% 52%, transparent 53% 62%, rgba(47,93,154,.45) 63% 68%, transparent 69%),
+        radial-gradient(circle at 50% 100%, transparent 0 30%, rgba(47,93,154,.45) 31% 36%, transparent 37% 46%, rgba(47,93,154,.45) 47% 52%, transparent 53% 62%, rgba(47,93,154,.45) 63% 68%, transparent 69%);
+    background-size: 68px 34px;
+    background-position: 0 0, 34px 17px;
+    -webkit-mask-image: linear-gradient(to top, #000 35%, transparent);
+            mask-image: linear-gradient(to top, #000 35%, transparent);
+}
+
+#petals {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* paper lanterns (chochin) */
+.lanterns { position: absolute; inset: 0; }
+
+.lantern {
+    position: absolute;
+    bottom: -25vh;
+    width: var(--size);
+    height: calc(var(--size) * 1.25);
+    border-radius: 50% / 42%;
+    background:
+        repeating-linear-gradient(to bottom, transparent 0 6px, rgba(0,0,0,.14) 6px 7px),
+        radial-gradient(circle at 50% 40%, rgba(255,255,255,.45), transparent 60%),
+        var(--c);
+    box-shadow: 0 0 26px 6px var(--c);
+    opacity: .9;
+    animation: rise linear infinite, sway ease-in-out infinite alternate;
+}
+
+.lantern::before,
+.lantern::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 42%;
+    height: 9%;
+    transform: translateX(-50%);
+    background: var(--sumi);
+    border-radius: 2px;
+}
+.lantern::before { top: -4%; }
+.lantern::after  { bottom: -4%; }
+
+@keyframes rise {
+    from { translate: 0 0; }
+    to   { translate: 0 -135vh; }
+}
+
+@keyframes sway {
+    from { transform: rotate(-6deg); }
+    to   { transform: rotate(6deg); }
+}
+
+/* ================= CONTENT ================= */
+img{
+    height:150px;
+    width:150px;
+    border-radius: 15px;
+    border:3px solid rgb(253, 35, 72);
+}
+.layout {
+    position: relative;
+    z-index: 5;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.box { text-align: center;
+     width: min(92vw, 460px);
+    display:flex; 
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: transform 1s ease, opacity 1s ease
+    }
+.box.slide-away{
+    transform:translate(100vh);
+    opacity:0;
+}
+.title-row {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+#text {
+    font-family: "Yuji Syuku", "Hiragino Mincho ProN", serif;
+    font-size: clamp(2.1rem, 9.5vw, 4.4rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--aka);
+    text-shadow: 0 0 18px rgba(255,255,255,.9);
+    min-height: 1.2em;
+}
+
+.hanko {
+    margin-top: 6px;
+    width: 2.2rem;
+    height: 2.2rem;
+    display: grid;
+    place-items: center;
+    background: var(--aka);
+    color: var(--washi);
+    font-family: "Yuji Syuku", serif;
+    font-size: 1.4rem;
+    border-radius: 4px;
+    transform: rotate(6deg);
+    opacity: 0;
+    transition: opacity .6s ease 1.8s;
+}
+.romaji ~ .name { margin-top: 28px; }
+body.ready .hanko { opacity: 1; }
+
+.romaji {
+    margin-top: 6px;
+    letter-spacing: .28em;
+    font-size: .95rem;
+    color: var(--ai);
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+section.name {
+    display: none;
+    opacity: 0;
+    transition: opacity .9s ease;
+    padding: 22px 20px;
+    background: rgba(255, 246, 236, .82);
+    -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+    border: 2px solid var(--kin);
+    border-radius: 14px;
+    outline: 1px solid rgba(200,16,46,.35);
+    outline-offset: 4px;
+}
+
+section.name h2 {
+    font-size: 1.15rem;
+    margin-bottom: 14px;
+}
+
+.inputValue {
+    width: 100%;
+    padding: 12px 14px;
+    font: inherit;
+    text-align: center;
+    color: var(--sumi);
+    background: #fffdf8;
+    border: 2px solid rgba(43,33,24,.25);
+    border-radius: 10px;
+}
+.inputValue:focus-visible { outline: 3px solid var(--kin); border-color: var(--aka); }
+
+#button {
+    margin-top: 14px;
+    padding: 12px 36px;
+    font: inherit;
+    font-weight: 700;
+    color: var(--washi);
+    background: var(--aka);
+    border: 2px solid var(--kin);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+#button:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(200,16,46,.35); }
+#button:active { transform: translateY(0); }
+#button:focus-visible { outline: 3px solid var(--sumi); outline-offset: 3px; }
+
+#response {
+    margin-top: 16px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    min-height: 1.4em;
+    color: var(--aka);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lantern { animation: none; bottom: 12vh; }
+}

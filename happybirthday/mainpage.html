@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お誕生日おめでとう</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yuji+Syuku&family=Zen+Maru+Gothic:wght@500;700&family=Edu+NSW+ACT+Cursive:wght@400..700&family=Great+Vibes&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mainpage.css">
+</head>
+<body>
+<audio id="bgMusic" loop>
+    <source src="music/happybirthday.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ===== MOVING BACKGROUND ===== -->
+<div class="bg" aria-hidden="true">
+    <div class="sun"></div>
+    <svg class="fuji" viewBox="0 0 800 300" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 300V255L230 232L335 125L400 60L465 125L570 228L800 250V300Z" fill="#8fa6d1" opacity=".5"/>
+        <path d="M400 60L335 125L368 116L386 134L406 112L426 134L444 116L465 125Z" fill="#fff" opacity=".95"/>
+    </svg>
+    <div class="lanterns"></div>
+    <canvas id="petals"></canvas>
+    <div class="waves"></div>
+</div>
+<!-- ===== END BACKGROUND ===== -->
+
+<div class="layout">
+    <div class="box">
+        <div class="title-row">
+            <h1 id="text"></h1>
+            <span class="hanko">祝</span>
+        </div>
+        <p class="romaji">Happy 23th Birthday Fafa chan!</p>
+        <button class="button btn btn-small" style="display:none;">♪ play music</button>
+        <img class="picture" src="music/fafa.jpg" alt="Fafa">
+        <button class="surprise btn">Get ready?</button>
+    </div>
+
+    <!-- Letter 1 -->
+    <div class="letter">
+        <p class="from">From Zay Chan</p>
+        <p>素敵なファフへ</p>
+        <br>
+        <p class="message">
+            ファファちゃん、おはようございます!! 明日の１０月７日は２３歳の誕生日ですね。まずはおめでとうございます!! あっという間に友達しているのはほぼ１年ですね。早いんじゃないですか!! あなたと友達になって本当に助かったよ、マークちゃんと。引き続きそしてこれからも何かいっぱい楽しい瞬間作ってきたいと思うので、本日は明日、そしてこれからもよろしくお願いします!! また今度!! スターガール☆
+        </p>
+        <br>
+        <p>愛を込めて、ゼイより</p>
+        <button class="next btn btn-small">next →</button>
+    </div>
+
+    <!-- Letter 2 -->
+    <div class="secondletter">
+        <p class="from">From Mark</p>
+        <p class="message">
+
+Fafachan, You are one of the best people who have ever appeared in my life. I love how considerate you are and how you always try not to hurt anyone, even when it means putting your own feelings aside.
+
+You have always supported me through my hardships and shown me that you genuinely care about my well-being. I hope that you get to experience all kinds of joy, not only on your birthday, but every single day.
+
+Please stay strong, because you are one of the main reasons why I continue to feel motivated to live my life.
+
+Happy birthday, Fafachan. ❤️</p>
+        <button class="next2 btn btn-small">next →</button>
+    </div>
+
+    <!-- Gallery 3x3 (filled by JS from the photos list) -->
+    <div class="gallery"></div>
+</div>
+
+<script src="mainpage.js"></script>
+</body>
+</html>
